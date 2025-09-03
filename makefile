@@ -40,4 +40,8 @@ $(BUILD_DIR):
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
+# Build and run
+run: all
+	./$(TARGET)
+	
 .PHONY: all clean
