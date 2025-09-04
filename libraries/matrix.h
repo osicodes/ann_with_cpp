@@ -176,7 +176,7 @@ public:
      *       - "glorot_norm": Xavier Normalized Initialization (good for other activations)
      *       If an unsupported method is provided, the program will exit with an error message.
      */
-    void matrix_custom_randomize(int input, int current, const string &initializationfunc) {
+    void matrix_custom_randomize(int input, int current, const string &initializationfunc = "he") {
         /*
         input -->  Number of nodes/neurons in input or previous layer (or number of input neurons coming into this current layer)
         current -->  Number of nodes/neurons in current layer (not input or previous layer)
@@ -266,50 +266,6 @@ public:
         //double max = (sqrt(6.0) / sqrt(size_l_minus_1 + size_l));
     }
 
-
-    /**
-     * @brief Returns the index of the maximum value in a single-column matrix.
-     * @return Index of the maximum value
-     * @note Expects a Mx1 matrix
-     */
-    double matrix_argmax()
-    {
-        try
-        {
-            if (cols != 1)
-            {
-                std::ostringstream oss;
-                oss << "matrix_argmax: Dimension error: "
-                    << rows << "x" << cols << std::endl
-                    << "Columns must be size 1 for argmax." << endl;
-                throw std::invalid_argument(oss.str());
-            }
-            double max_score = 0;
-            int max_index = 0;
-            for (int i = 0; i < rows; i++)
-            {
-                if (data[i][0] > max_score)
-                {
-                    max_score = data[i][0];
-                    max_index = i;
-                }
-            }
-            return max_index;
-        }
-        catch (const invalid_argument &e)
-        {
-            cerr << "Error: " << e.what() << endl;
-        }
-        catch (const std::exception &e)
-        {
-            cerr << "Standard exception: " << e.what() << '\n';
-        }
-        catch (...)
-        {
-            std::cerr << "Unknown exception occurred" << std::endl;
-        }
-        return 0;
-    }
 
     /**
      * @brief Flattens the matrix into a single row or column vector.

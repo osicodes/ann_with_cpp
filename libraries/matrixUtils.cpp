@@ -1,6 +1,7 @@
 
 #include <sstream>
-#include "Matrix.h" // Add this line if Matrix is defined in Matrix.h
+// #include "Matrix.h" // Add this line if Matrix is defined in Matrix.h
+#include "matrixUtils.h"
 using namespace std;
 
 // Add utility functions for matrix operations here if needed in the future
@@ -63,13 +64,32 @@ namespace MatrixUtils
         }
     }
 
+    
+    /**
+     * @brief Checks if a matrix is a column matrix (cols == 1)
+     * @param matrix Input matrix
+     * @param context Optional context message for error reporting
+     * @throws runtime_error if the matrix is not a column matrix
+     */
+    void check_column_matrix(const Matrix &matrix, const string &context)
+    {
+        if (matrix.cols != 1)
+        {
+            ostringstream msg;
+            msg << context
+                << matrix.rows << "x" << matrix.cols << endl
+                << "Matrix must be a column matrix (cols == 1).";
+            throw runtime_error(msg.str());
+        }
+    }
+
     /**
      * @brief Applies a given function to each element of the matrix
      * @param func Function pointer to the function to be applied
      * @param matrix Input matrix
      * @return New matrix with the function applied to each element
      */
-    Matrix apply(double (*func)(double), const Matrix &matrix)
+    Matrix apply_function(double (*func)(double), const Matrix &matrix)
     {
         Matrix result_matrix = matrix.matrix_copy();
         for (int i = 0; i < matrix.rows; i++)

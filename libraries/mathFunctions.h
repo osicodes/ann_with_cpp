@@ -13,6 +13,7 @@ Matrix scale(const double &scale_value, const Matrix &matrix);
 Matrix addScalar(const double &scale_value, const Matrix &matrix);
 Matrix transpose(const Matrix &matrix);
 double determinant(const Matrix &matrix);
+double matrix_argmax(const Matrix &matrix);
 double mse(const Matrix &matrix1, const Matrix &matrix2);
 Matrix mse_derivative(const Matrix &matrix1, const Matrix &matrix2);
 double cross_enthropy(const Matrix m1, const Matrix m2);

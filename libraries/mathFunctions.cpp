@@ -8,8 +8,7 @@
 #include <sstream>
 #include "matrixUtils.h"
 using namespace std;
-using namespace MatrixUtils; 
-
+using namespace MatrixUtils;
 
 /**
  * @brief Element-wise multiplication of two matrices
@@ -110,7 +109,7 @@ Matrix subtract(Matrix matrix1, Matrix matrix2)
  */
 Matrix beforeSoftmax(Matrix matrix)
 {
-	double maxnum = matrix.matrix_argmax();
+	double maxnum = matrix_argmax(matrix);
 
 	Matrix result_matrix(matrix.rows, matrix.cols);
 	for (int i = 0; i < matrix.rows; i++)
@@ -122,7 +121,6 @@ Matrix beforeSoftmax(Matrix matrix)
 	}
 	return result_matrix;
 }
-
 
 /**
  * @brief Generates an identity matrix of given size
@@ -211,9 +209,46 @@ Matrix transpose(const Matrix &matrix)
  */
 double determinant(const Matrix &matrix)
 {
-    check_square_matrix(matrix, "Determinant calculation");
-    // Determinant implementation here
+	check_square_matrix(matrix, "Determinant calculation");
+	// Determinant implementation here
 	return 0.0; // Placeholder return value
+}
+
+/**
+ * @brief Returns the index of the maximum value in a single-column matrix.
+ * @return Index of the maximum value
+ * @note Expects a Mx1 matrix
+ */
+double matrix_argmax(const Matrix &matrix)
+{
+	try
+	{
+		check_column_matrix(matrix, "matrix_argmax: Dimension error: ");
+		double max_score = 0;
+		int max_index = 0;
+		for (int i = 0; i < matrix.rows; i++)
+		{
+			if (matrix.data[i][0] > max_score)
+			{
+				max_score = matrix.data[i][0];
+				max_index = i;
+			}
+		}
+		return max_index;
+	}
+	catch (const invalid_argument &e)
+	{
+		cerr << "Error: " << e.what() << endl;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Standard exception: " << e.what() << '\n';
+	}
+	catch (...)
+	{
+		std::cerr << "Unknown exception occurred" << std::endl;
+	}
+	return 0;
 }
 
 /**

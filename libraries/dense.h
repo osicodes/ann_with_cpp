@@ -1,8 +1,10 @@
 #pragma once
 #include "matrix.h"
 #include "mathFunctions.h"
+#include "matrixUtils.h"
+using namespace MatrixUtils;
 
-typedef struct Dense
+struct Dense
 {
     /// @brief Weight matrix of the dense layer
     Matrix weight;
@@ -12,9 +14,18 @@ typedef struct Dense
 
     /// @brief Input matrix stored for backpropagation
     Matrix backwardInput;
-    Dense(int in, int out, const char *initializationfunc)
+
+    /**
+     * @brief Constructor to initialize the dense layer with given input and output sizes
+     * @param in Number of input features
+     * @param out Number of output features
+     * @param initializationfunc Initialization method ("he", "glorot_norm", "glorot_uniform", "leCun")
+     */
+    Dense(int in, int out, const string &initializationfunc = "he")
         : weight(out, in), bias(out, 1), backwardInput(in, 1)
     {
+        weight.matrix_custom_randomize(weight.rows, weight.cols, initializationfunc);
+        bias.matrix_custom_randomize(bias.rows, 1, initializationfunc);
     }
 
     /**
@@ -22,8 +33,9 @@ typedef struct Dense
      * @param input Input matrix
      * @return Output matrix after applying weights and bias
      */
-    Matrix forward(Matrix input)
+    Matrix forward_propagation(Matrix input)
     {
+        check_same_dimensions(input, backwardInput, "Dense layer forward propagation: ");
         backwardInput = input;
 
         try
@@ -46,5 +58,14 @@ typedef struct Dense
         {
             std::cerr << "Unknown exception occurred" << std::endl;
         }
+    }
+
+    Matrix backward(Matrix output_gradient,const double learning_rate)
+    {
+        Matrix weights_gradient = dot_product(output_gradient, transpose(backwardInput));
+        Matrix input_gradient = dot_product(transpose(weight), output_gradient);
+        weight = subtract(weight,scale(learning_rate,weights_gradient));
+        bias = subtract(bias,scale(learning_rate,output_gradient));
+        return input_gradient;
     }
 };
