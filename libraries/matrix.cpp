@@ -10,6 +10,8 @@ double Matrix::uniform_distribution(double low, double high)
     return low + (1.0 * (rand() % scaled_difference) / scale);
 }
 
+
+
 Matrix::Matrix(int row, int col) : rows(row), cols(col), data(row, vector<double>(col, 0.0))
 {
 }

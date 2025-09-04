@@ -1,13 +1,13 @@
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
 
-#include "matrix.h"
+#include "../matrix.h"
 
-Matrix multiply(Matrix matrix1, Matrix matrix2);
-Matrix add(Matrix matrix1, Matrix matrix2);
-Matrix subtract(Matrix matrix1, Matrix matrix2);
-Matrix beforeSoftmax(Matrix matrix);
-Matrix dot_product(Matrix matrix1, Matrix matrix2);
+Matrix multiply(const Matrix &matrix1, const Matrix &matrix2);
+Matrix add(const Matrix &matrix1, const Matrix &matrix2);
+Matrix subtract(const Matrix &matrix1, const Matrix &matrix2);
+Matrix beforeSoftmax(const Matrix &matrix);
+Matrix dot_product(const Matrix &matrix1, const Matrix &matrix2);
 Matrix identity_matrix(const int &num);
 Matrix scale(const double &scale_value, const Matrix &matrix);
 Matrix addScalar(const double &scale_value, const Matrix &matrix);

@@ -1,7 +1,7 @@
 #ifndef NEURALNETWORK_H
 #define NEURALNETWORK_H
 
-#include "dense.h"
+#include "layers/dense.h"
 
 struct NeuralNetwork {
 
@@ -35,14 +35,34 @@ struct NeuralNetwork {
     /// @brief Biases for output layer
 	Matrix output_bias;
 
+    /// @brief Vector of pointers to layers in the network
+    vector<Layer*> layers;
+
+    /// @brief Input data matrix
+    Matrix input_data;
+
+    /// @brief Target data matrix
+    Matrix target_data;
+
+   /**
+    * @brief Constructor to initialize the neural network with given layers
+    * @param _layers Vector of pointers to Layer objects
+    * @note The layers should be added in the order they are to be used in the network
+    */
+    NeuralNetwork(vector<Layer*> _layers);
+
     /**
-     * @brief Constructor to initialize the neural network with given sizes and learning rate
-     * @param input_size Number of input features
-     * @param hidden_size Number of hidden neurons
-     * @param output_size Number of output neurons
+     * @brief Compiles the neural network by setting the learning rate
      * @param lr Learning rate for training
      */
-    NeuralNetwork(int input_size, int hidden_size, int output_size, double lr);
+    void compile(double lr);
+
+    /**
+     * @brief Performs a forward pass through the network
+     * @param input Input data matrix
+     * @return Output matrix after passing through all layers
+     */
+    void train(const Matrix &input, const Matrix &target, int epochs, int batch_size);
 } ;
 
 #endif

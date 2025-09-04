@@ -17,7 +17,7 @@ using namespace MatrixUtils;
  * @return Resultant matrix after multiplication
  * @throws invalid_argument: Dimension mistmatch multiply
  */
-Matrix multiply(Matrix matrix1, Matrix matrix2)
+Matrix multiply(const Matrix &matrix1, const Matrix &matrix2)
 {
 	check_same_dimensions(matrix1, matrix2, "Dimension mismatch multiply: ");
 	Matrix result_matrix(matrix1.rows, matrix1.cols);
@@ -38,7 +38,7 @@ Matrix multiply(Matrix matrix1, Matrix matrix2)
  * @return Resultant matrix after multiplication
  * @throws invalid_argument: Dimension mistmatch dot_product
  */
-Matrix dot_product(Matrix matrix1, Matrix matrix2)
+Matrix dot_product(const Matrix &matrix1, const Matrix &matrix2)
 {
 	check_dot_product_compatible(matrix1, matrix2, "Dimension mistmatch dot_product: ");
 
@@ -65,7 +65,7 @@ Matrix dot_product(Matrix matrix1, Matrix matrix2)
  * @return Resultant matrix after addition
  * @throws invalid_argument: Dimension mistmatch add
  */
-Matrix add(Matrix matrix1, Matrix matrix2)
+Matrix add(const Matrix &matrix1, const Matrix &matrix2)
 {
 	check_same_dimensions(matrix1, matrix2, "Dimension mistmatch add: ");
 
@@ -87,7 +87,7 @@ Matrix add(Matrix matrix1, Matrix matrix2)
  * @return Resultant matrix after subtraction
  * @throws invalid_argument: Dimension mistmatch subtract
  */
-Matrix subtract(Matrix matrix1, Matrix matrix2)
+Matrix subtract(const Matrix &matrix1, const Matrix &matrix2)
 {
 	check_same_dimensions(matrix1, matrix2, "Dimension mistmatch subtract: ");
 
@@ -107,7 +107,7 @@ Matrix subtract(Matrix matrix1, Matrix matrix2)
  * @param matrix Input matrix
  * @return New matrix with maximum value subtracted from each element
  */
-Matrix beforeSoftmax(Matrix matrix)
+Matrix beforeSoftmax(const Matrix &matrix)
 {
 	double maxnum = matrix_argmax(matrix);
 

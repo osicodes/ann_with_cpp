@@ -34,6 +34,9 @@ public:
     /// @brief 2D vector to store matrix data
     vector<vector<double>> data;
 
+    /// @brief Default constructor initializing an empty matrix
+    Matrix() : rows(0), cols(0), data{} {}
+
     /**
      * Constructor to initialize a matrix with given rows and columns, filled with zeros.
      * @param row Number of rows

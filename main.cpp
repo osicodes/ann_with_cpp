@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include "mathFunctions.h"
+#include "dense.h"
+#include "neuralNetwork.h"
+#include "reluLayer.h"
 using namespace std;
 
 int main() {
@@ -14,15 +17,20 @@ int main() {
     Matrix sum = add(m, n);
     sum.matrix_print();
 
-    // sum.matrix_save("NEWdata.txt");
+    // // Using layer structs
+    // Dense* denseLayer = new Dense(3, 2);
+    // Relu* reluLayer = new Relu();
+    
+    Dense denseLayer(3, 2);
+    Relu reluLayer = Relu();
 
-    Matrix p(3, 1);
-    p.matrix_fill_with_same_value(3);
-    p.matrix_custom_randomize(6,5,"he");
 
-    Matrix id = identity_matrix(5);
-    cout << "matrix identity: " << endl;
-    id.matrix_print();
+    vector<Layer*> layers = {&denseLayer, &reluLayer};
+    layers.back()->forward_propagation(m);
+
+    NeuralNetwork nn(layers);
+    nn.compile(0.01);
+
 
     return 0;
 }

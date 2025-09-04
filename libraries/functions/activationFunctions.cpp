@@ -3,7 +3,8 @@
 #include <cmath>
 #include <algorithm>
 #include "mathFunctions.h"
-#include "matrixUtils.h"
+#include "../matrixUtils.h"
+#include "../layers/layer.h"
 
 using namespace MatrixUtils; 
 
@@ -74,7 +75,7 @@ double tan_h_prime(const double input) {
  * @param matrix Input matrix
  * @return Matrix with sigmoid applied to each element
  */
-Matrix sigmoidPrime(Matrix matrix) {
+Matrix sigmoidPrime(const Matrix &matrix) {
 	Matrix ones(matrix.rows, matrix.cols);
     ones.matrix_fill_with_same_value(1);
 	Matrix subtracted = subtract(ones, matrix);
@@ -87,7 +88,7 @@ Matrix sigmoidPrime(Matrix matrix) {
  * @param matrix Input matrix
  * @return Matrix with softmax applied to each element
  */
-Matrix softmax(Matrix matrix) {
+Matrix softmax(const Matrix &matrix) {
 	double total = 0;
 	for (int i = 0; i < matrix.rows; i++) {
 		for (int j = 0; j < matrix.cols; j++) {
@@ -109,7 +110,7 @@ Matrix softmax(Matrix matrix) {
  * @param matrix Input matrix (softmax output)
  * @return Jacobian matrix of the softmax function
  */
-Matrix softmax_prime(int sz, Matrix matrix) {
+Matrix softmax_prime(int &sz, const Matrix &matrix) {
 	
 	Matrix result_matrix(sz, sz);
 	for (int i = 0; i < result_matrix.rows; i++) {
@@ -126,70 +127,3 @@ Matrix softmax_prime(int sz, Matrix matrix) {
 	}
 	return result_matrix;
 }
-
-/* Check later */
-struct Sigmoid {
-    Matrix backwardInput;
-
-    Matrix forward(Matrix input)
-    {
-        backwardInput = Matrix(input.rows, input.cols);
-        backwardInput = input;
-        return apply_function(sigmoid, input);
-    }
-
-    Matrix backward(Matrix output_gradient, double learning_rate)
-    {
-        return multiply(output_gradient, apply_function(sigmoid_prime, backwardInput));
-    }
-};
-
-struct Relu {
-    Matrix backwardInput;
-
-    Matrix forward(Matrix input)
-    {
-        backwardInput = Matrix(input.rows, input.cols);
-        backwardInput = input;
-        return apply_function(relu, input);
-    }
-
-    Matrix backward(Matrix output_gradient, double learning_rate)
-    {
-        return multiply(output_gradient, apply_function(relu_prime, backwardInput));
-    }
-};
-
-
-struct Tanh {
-    Matrix backwardInput;
-
-    Matrix forward(Matrix input)
-    {
-        backwardInput = Matrix(input.rows, input.cols);
-        backwardInput = input;
-        return apply_function(tan_h, input);
-    }
-
-    Matrix backward(Matrix output_gradient, double learning_rate)
-    {
-        return multiply(output_gradient, apply_function(tan_h_prime, backwardInput));
-    }
-};
-
-struct Softmax {
-    Matrix backwardInput;
-
-    Matrix forward(Matrix input)
-    {
-        backwardInput = Matrix(input.rows, input.cols);
-        backwardInput = input;
-        return softmax(input);
-    }
-
-    Matrix backward(Matrix output_gradient, double learning_rate)
-    {
-        Matrix tmp = softmax(backwardInput);
-        return dot_product(softmax_prime(backwardInput.rows, tmp), output_gradient);
-    }
-};
