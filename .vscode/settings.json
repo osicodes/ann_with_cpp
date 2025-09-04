@@ -4,6 +4,9 @@
         "cmath": "cpp",
         "algorithm": "cpp",
         "iosfwd": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "fstream": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp"
     }
 }

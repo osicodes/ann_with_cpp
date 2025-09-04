@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "mathFunctions.h"
 #include "matrixUtils.h"
-// using namespace std;
+
 using namespace MatrixUtils; 
 
 /**
