@@ -2,7 +2,7 @@
 
 CXX = g++
 CFLAGS = -MMD -MP
-CXXFLAGS := $(CFLAGS) -Wall -Wextra -std=c++17 \
+CXXFLAGS := $(CFLAGS) -fdiagnostics-color=always -g -Wall -Wextra -std=c++17 \
 -I./libraries \
 -I./libraries/functions \
 -I./libraries/layers \

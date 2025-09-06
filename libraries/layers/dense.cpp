@@ -9,9 +9,11 @@ Dense::Dense(int in, int out, const string &initializationfunc)
 
 Matrix Dense::forward_propagation(const Matrix &input)
 {
+
     check_same_dimensions(input, backwardInput, "Dense layer forward propagation: ");
     backwardInput = input;
-    /* Do this later 
+
+    /* Do this later
     check_column_matrix(input, "Dense layer forward propagation: ");
     weight = Matrix(current_layer_neurons, input.rows);
     backwardInput = input;
@@ -19,6 +21,7 @@ Matrix Dense::forward_propagation(const Matrix &input)
 
     try
     {
+
         return add(dot_product(weight, input), bias);
     }
     catch (const invalid_argument &e)
@@ -47,6 +50,9 @@ Matrix Dense::backward_propagation(const Matrix &output_gradient, const double l
 {
     Matrix weights_gradient = dot_product(output_gradient, transpose(backwardInput));
     Matrix input_gradient = dot_product(transpose(weight), output_gradient);
+    // cout << "\n input_gradient" << endl;
+    // input_gradient.matrix_print();
+
     update(weights_gradient, output_gradient, learning_rate);
     return input_gradient;
 }

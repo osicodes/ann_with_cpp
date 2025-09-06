@@ -15,8 +15,6 @@ struct MSE : public Loss
     /// @brief Small constant to prevent division by zero
     const double epsilon = 1e-10; // Small constant to prevent division by zero
 
-    /// @brief Error value
-    double error = 0;
 
     /// @brief Mean Squared Error function
     double mse(const Matrix &matrix1, const Matrix &matrix2);

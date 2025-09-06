@@ -14,10 +14,21 @@ NeuralNetwork::NeuralNetwork(vector<Layer *> _layers)
     layers = _layers;
 }
 
-void NeuralNetwork::compile(Optimizer optimizer_type, Loss loss_function)
+void NeuralNetwork::compile(Optimizer *optimizer_type, Loss *loss_function)
 {
-    optimizer = optimizer_type;
-    loss = loss_function;
+    static SGD defaultOptimizer;
+    static MSE defaultLoss;
+
+    // If user didn't provide them, use defaults
+    if (optimizer_type == nullptr)
+        optimizer = &defaultOptimizer;
+    else
+        optimizer = optimizer_type;
+
+    if (loss_function == nullptr)
+        loss = &defaultLoss;
+    else
+        loss = loss_function;
 }
 
 void NeuralNetwork::fit(const Matrix &input, const Matrix &target, int epochs, int batch_size)
@@ -38,12 +49,14 @@ void NeuralNetwork::train()
 {
     int input_data_size_rows = input_data.rows;
     int input_data_size_cols = input_data.cols;
-    
+    // cout << "\n input_data_size_cols: " << input_data_size_cols << endl;
+
     int target_data_size_rows = target_data.rows;
     int target_data_size_cols = target_data.cols;
     for (int i = 0; i < input_data_size_rows; i += batchSize)
     {
         int actualBatchSize = min(batchSize, input_data_size_rows - i);
+        cout << "\n\nBATCH: " << i << ": \n";
 
         for (int j = 0; j < actualBatchSize; j++)
         {
@@ -54,23 +67,35 @@ void NeuralNetwork::train()
             Matrix each_row_of_target_data = Matrix(1, target_data_size_cols);
             each_row_of_target_data.data = {{target_data.data[idx]}};
 
-            Matrix result = perform_forward_propagation(transpose(each_row_of_input_data));
+            Matrix result = perform_forward_propagation(transpose(each_row_of_input_data)); // forward propagate
+            cout << "forward_propagation result " << idx + 1 << ": " << endl;
+            result.matrix_print();
 
-            loss.forward(transpose(each_row_of_target_data), result);
-            Matrix loss_gradient = loss.backward();
+            loss->forward(transpose(each_row_of_target_data), result); // forward loss
+            cout << "loss: " << idx + 1 << ": " << endl;
+            cout << loss->error << endl;
 
-            perform_backward_propagation(loss_gradient, optimizer.learning_rate);
+            Matrix loss_gradient = loss->backward(); // backward loss
 
-            cout << "Output after forward propagation for sample " << idx + 1 << ": ";
+            perform_backward_propagation(loss_gradient, optimizer->learning_rate); // backward weight and bias updates
+
+            cout << "Loss gradient " << idx + 1 << ": " << endl;
+            loss_gradient.matrix_print();
+            cout << "Output after forward propagation for batch " << idx + 1 << ": \n"
+                 << endl;
         }
+        cout << "\n"
+             << endl;
     }
 }
 
 Matrix NeuralNetwork::perform_forward_propagation(const Matrix &input)
 {
     Matrix output = input;
+
     for (Layer *layer : layers)
     {
+
         output = layer->forward_propagation(output);
     }
     return output;
@@ -79,6 +104,7 @@ Matrix NeuralNetwork::perform_forward_propagation(const Matrix &input)
 void NeuralNetwork::perform_backward_propagation(const Matrix &loss_gradient, const double learning_rate)
 {
     Matrix output_gradient = loss_gradient;
+
     for (auto it = layers.rbegin(); it != layers.rend(); ++it)
     {
         output_gradient = (*it)->backward_propagation(output_gradient, learning_rate);

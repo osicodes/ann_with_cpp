@@ -46,6 +46,8 @@ void MSE::forward(const Matrix &true_values, const Matrix &predicted_values)
 {
     y_true = true_values;
     y_pred = predicted_values;
+    // cout << "\nerror: " << mse(y_true, y_pred) << "\n" << endl;
+
     error = mse(y_true, y_pred);
 }
 

@@ -55,10 +55,10 @@ public:
     Matrix target_data;
 
     /// @brief Optimizer for training the network   
-    Optimizer optimizer;
+    Optimizer* optimizer;
 
     /// @brief Loss function for training the network
-    Loss loss;
+    Loss* loss;
 
     /**
      * @brief Constructor to initialize the neural network with given layers
@@ -71,7 +71,7 @@ public:
      * @brief Compiles the neural network by setting the learning rate
      * @param lr Learning rate for training
      */
-    void compile(Optimizer optimizer_type = SGD(), Loss loss_function = MSE());
+    void compile(Optimizer* optimizer_type = nullptr, Loss* loss_function = nullptr);
 
     /**
      * @brief Performs a forward pass through the network
