@@ -52,7 +52,7 @@ int main()
     layers.back()->forward_propagation(m);
 
     NeuralNetwork nn(layers);
-    nn.compile(ADAM(0.001));
+    // nn.compile(ADAM(0.001));
     // nn.fit(m, n, 5, 2);
 
     
