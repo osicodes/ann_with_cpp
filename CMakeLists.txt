@@ -35,7 +35,7 @@ set(SOURCE_FILES main.cpp ${SRC_LIBRARIES} ${SRC_LIBRARIES_FOLDER})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Set compiler flags
-# target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
+# target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 # target_compile_options(${PROJECT_NAME} PRIVATE -g)  # Uncomment for debugging
 # target_compile_options(${PROJECT_NAME} PRIVATE -O3)  # Uncomment for optimization
 
