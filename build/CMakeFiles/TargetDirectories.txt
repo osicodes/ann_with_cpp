@@ -1,3 +1,0 @@
-C:/codes/ann_with_cpp/build/CMakeFiles/main.dir
-C:/codes/ann_with_cpp/build/CMakeFiles/edit_cache.dir
-C:/codes/ann_with_cpp/build/CMakeFiles/rebuild_cache.dir
