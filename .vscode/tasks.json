@@ -7,19 +7,9 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": []
-        }
-    ],
-    "version": "2.0.0"
-}
-
-
-/*{
-    "tasks": [
+        },
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe build active file",
@@ -27,34 +17,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-std=c++17",
                 "${file}",
-
-                "${workspaceFolder}\\libraries\\matrix.cpp",
-                "${workspaceFolder}\\libraries\\matrixUtils.cpp",
-                "${workspaceFolder}\\libraries\\neuralNetwork.cpp",
-
-                "${workspaceFolder}\\libraries\\layers\\reluLayer.cpp",
-                "${workspaceFolder}\\libraries\\layers\\dense.cpp",
-                "${workspaceFolder}\\libraries\\layers\\sigmoidLayer.cpp",
-                "${workspaceFolder}\\libraries\\layers\\softmaxLayer.cpp",
-                "${workspaceFolder}\\libraries\\layers\\tanhLayer.cpp",
-                
-                "${workspaceFolder}\\libraries\\optimizers\\sgdOptimizer.cpp",
-
-                "${workspaceFolder}\\libraries\\functions\\mathFunctions.cpp",
-                "${workspaceFolder}\\libraries\\functions\\activationFunctions.cpp",
-
-                // Include directories
-                "-I.${workspaceFolder}\\libraries",
-                "-I.${workspaceFolder}\\libraries\\functions",
-                "-I.${workspaceFolder}\\libraries\\layers",
-                "-I.${workspaceFolder}\\libraries\\optimizers",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -67,4 +35,4 @@
         }
     ],
     "version": "2.0.0"
-}*/
+}

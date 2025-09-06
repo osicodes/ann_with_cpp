@@ -10,6 +10,7 @@ CXXFLAGS := $(CFLAGS) -Wall -Wextra -std=c++17 \
 -I./libraries/activations \
 -I./libraries/loss
 
+LDLIBS = # -lfmt -I./vcpkg/packages/fmt_x64-windows/include/fmt
 
 # Project structure
 LIB_DIR = libraries
@@ -38,7 +39,7 @@ all: $(TARGET)
 
 # Linking
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDLIBS)
 
 
 # Compile .cpp to .o and keep object files in build directory

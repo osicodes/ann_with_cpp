@@ -3,6 +3,9 @@
 # Set the minimum version of CMake required
 cmake_minimum_required(VERSION 3.20.0)
 
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    CACHE STRING "Vcpkg toolchain file")
+
 # Define the project name and version
 project(main VERSION 1.0.0)
 
@@ -11,6 +14,35 @@ project(main VERSION 1.0.0)
 # Set the C++ standard to C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Find and include matplotlib-cpp
+find_path(MATPLOTLIB_CPP_INCLUDE_DIRS "matplotlibcpp.h")
+
+if(MATPLOTLIB_CPP_INCLUDE_DIRS)
+    message(STATUS "Found matplotlib-cpp include directory: ${MATPLOTLIB_CPP_INCLUDE_DIRS}")
+    # Add the found include directory to your project
+    include_directories(${MATPLOTLIB_CPP_INCLUDE_DIRS})
+else()
+    message(FATAL_ERROR "matplotlib-cpp not found. Please install it and set the MATPLOTLIB_CPP_INCLUDE_DIRS variable.")
+endif()
+
+# Find and include Eigen3
+find_package(Eigen3 CONFIG REQUIRED)
+
+# # Find and include fmt
+# find_path(FMT_INCLUDE_DIRS
+#     NAMES fmt/core.h # or fmt/core.h, depending on what fmt provides
+#     PATHS "${PROJECT_SOURCE_DIR}/vcpkg/packages/fmt_x64-windows/include")
+
+# if(FMT_INCLUDE_DIRS)
+#     message(STATUS "Found fmt include directory: ${FMT_INCLUDE_DIRS}")
+#     # Add the found include directory to your project
+#     include_directories(${FMT_INCLUDE_DIRS})
+# else()
+#     message(FATAL_ERROR "fmt not found. Please install it and set the FMT_INCLUDE_DIRS variable.")
+# endif()
+
+
 
 # Include directories
 # include_directories(${PROJECT_SOURCE_DIR}/libraries)
@@ -33,6 +65,11 @@ set(SOURCE_FILES main.cpp ${SRC_LIBRARIES} ${SRC_LIBRARIES_FOLDER})
 
 # Create the executable target
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+# Link libraries to the executable
+target_link_libraries(main PRIVATE
+    Eigen3::Eigen
+)
 
 # Set compiler flags
 # target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)

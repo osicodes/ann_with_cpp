@@ -10,10 +10,13 @@
 
 #include <array>
 #include <vector>
+#include <ctime>
 using namespace std;
 
 int main()
 {
+    srand(time(NULL));
+
     Matrix m(4, 3);
     Matrix n(4, 3);
 
@@ -26,13 +29,11 @@ int main()
     std::vector<std::array<int, 4>> obs_boundarys = {
         {0, 0, 1, 1},
         {1, 1, 2, 2},
-        {2, 2, 3, 3}
-    };
+        {2, 2, 3, 3}};
 
     vector<vector<double>> X = {
-        {1, 2}, 
-        {3, 4}
-    };
+        {1, 2},
+        {3, 4}};
     vector<vector<double>> row1 = {{X.at(0)}}; // Gets {1, 2}
     vector<vector<double>> row2 = {{X[1]}};
 
@@ -54,8 +55,6 @@ int main()
     NeuralNetwork nn(layers);
     // nn.compile(ADAM(0.001));
     // nn.fit(m, n, 5, 2);
-
-    
 
     return 0;
 }

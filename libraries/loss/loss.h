@@ -1,7 +1,7 @@
 #ifndef LOSS_H
 #define LOSS_H
 
-#include "matrix.h"
+#include "../matrix.h"
 
 struct Loss
 {
