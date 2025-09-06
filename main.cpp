@@ -1,4 +1,8 @@
 // #include "matrix.h"
+// https://github.com/lava/matplotlib-cpp/blob/master/README.md
+// https://github.com/BobMcDear/neural-network-cuda/blob/main/README.md
+// https://github.com/huangzehao/SimpleNeuralNetwork/blob/master/src/neural-net.cpp
+// https://github.com/AndrewCarterUK/mnist-neural-network-plain-c/blob/master/neural_network.c
 
 #include <iostream>
 #include "libraries/functions/mathFunctions.h"
