@@ -1,12 +1,11 @@
-#ifndef SGDOPTIMIZER_H
-#define SGDOPTIMIZER_H
-
+#ifndef ADAM_H
+#define ADAM_H
 #include "optimizer.h"
 #include "../constants.h"
 
-struct SGD : Optimizer
+struct ADAM : Optimizer
 {
-    SGD(double lr = DEFAULT_LEARNING_RATE);
+    ADAM(double lr = DEFAULT_LEARNING_RATE);
 
 protected:
     void update(Matrix &, const Matrix &, const double ) override
@@ -14,4 +13,4 @@ protected:
     }
 };
 
-#endif // !SGDOPTIMIZER_H
+#endif

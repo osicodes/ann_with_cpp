@@ -3,7 +3,7 @@
         {
             "label": "Build ann task",
             "type": "shell",
-            "command": "make",
+            "command": "make run",
             "options": {
                 "cwd": "${workspaceFolder}"
             },

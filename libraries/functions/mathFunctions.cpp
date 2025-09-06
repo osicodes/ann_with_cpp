@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <string>
 #include <sstream>
-#include "matrixUtils.h"
+#include "../matrixUtils.h"
 using namespace std;
 using namespace MatrixUtils;
 
@@ -19,7 +19,7 @@ using namespace MatrixUtils;
  */
 Matrix multiply(const Matrix &matrix1, const Matrix &matrix2)
 {
-	check_same_dimensions(matrix1, matrix2, "Dimension mismatch multiply: ");
+	MatrixUtils::check_same_dimensions(matrix1, matrix2, "Dimension mismatch multiply: ");
 	Matrix result_matrix(matrix1.rows, matrix1.cols);
 	for (int i = 0; i < matrix1.rows; i++)
 	{
@@ -249,41 +249,6 @@ double matrix_argmax(const Matrix &matrix)
 		std::cerr << "Unknown exception occurred" << std::endl;
 	}
 	return 0;
-}
-
-/**
- * @brief Calculates the Mean Squared Error (MSE) between two matrices
- * @param matrix1 First matrix (true values)
- * @param matrix2 Second matrix (predicted values)
- * @return Mean Squared Error value
- */
-double mse(const Matrix &matrix1, const Matrix &matrix2)
-{
-	check_same_dimensions(matrix1, matrix2, "Dimension mistmatch mean square error: ");
-	// true_y - predicted_y
-	double error = 0.0;
-	for (int i = 0; i < matrix1.rows; i++)
-	{
-		for (int j = 0; j < matrix2.cols; j++)
-		{
-			error += pow(matrix1.data[i][j] - matrix2.data[i][j], 2);
-		}
-	}
-	return error / matrix1.rows;
-}
-
-/**
- * @brief Calculates the derivative of the Mean Squared Error (MSE) with respect to the predicted values
- * @param matrix1 First matrix (true values)
- * @param matrix2 Second matrix (predicted values)
- * @return Matrix representing the derivative of MSE
- */
-Matrix mse_derivative(const Matrix &matrix1, const Matrix &matrix2)
-{
-	// Mean Square error prime  ---  d(cost func)/d(activated output)
-	Matrix output = subtract(matrix1, matrix2); // true_y - predicted_y
-	const double sc = 2.0 / matrix1.rows;
-	return scale(sc, output);
 }
 
 /**

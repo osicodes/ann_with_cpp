@@ -2,7 +2,7 @@
 #include <sstream>
 // #include "Matrix.h" // Add this line if Matrix is defined in Matrix.h
 #include "matrixUtils.h"
-using namespace std;
+// using namespace std;
 
 // Add utility functions for matrix operations here if needed in the future
 namespace MatrixUtils

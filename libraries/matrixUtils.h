@@ -1,10 +1,10 @@
 #ifndef MATRIXUTILS_H
 #define MATRIXUTILS_H
 
-#include "Matrix.h" // Add this line if Matrix is defined in Matrix.h
-// using namespace std;
+#include "matrix.h" 
+using namespace std;
 
-#include <string>
+// #include <string>
 
 namespace MatrixUtils
 {

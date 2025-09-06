@@ -1,11 +1,19 @@
 # Simple Makefile for C++ projects
 
 CXX = g++
-CXXFLAGS := -Wall -Wextra -std=c++17 -I./libraries -I./libraries/functions -I./libraries/layers -I./libraries/optimizers
+CFLAGS = -MMD -MP
+CXXFLAGS := $(CFLAGS) -Wall -Wextra -std=c++17 \
+-I./libraries \
+-I./libraries/functions \
+-I./libraries/layers \
+-I./libraries/optimizers \
+-I./libraries/activations \
+-I./libraries/loss
+
 
 # Project structure
 LIB_DIR = libraries
-BUILD_DIR = build
+BUILD_DIR = build_files
 
 # Source files
 SRC_MAIN = $(wildcard *.cpp)             # all cpp in parent dir
@@ -18,8 +26,9 @@ SRC = $(SRC_MAIN) $(SRC_LIBRARIES) $(SRC_LIBRARIES_FOLDER) # combine all source 
 #         $(wildcard $(LIB_DIR)/*.cpp) \
 #         $(wildcard $(LIB_DIR)/*/*.cpp)
 
-# Object files
+# Object and dependency files
 OBJ = $(SRC:%.cpp=$(BUILD_DIR)/%.o)
+DEP = $(SRC:%.cpp=$(BUILD_DIR)/%.d)
 
 # Target executable
 TARGET = main
@@ -50,4 +59,4 @@ clean:
 run: all
 	./$(TARGET)
 	
-.PHONY: all clean
+.PHONY: all clean run
